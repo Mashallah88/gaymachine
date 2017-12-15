@@ -11,8 +11,8 @@ struct chss
    struct chss* left;
 };
 struct chss* chs;
-void process_command(int code);
-int process_line();
+void command(int code);
+int line();
 int main(int argc, char *argv[])
 {
   chs = (struct chss*)malloc(sizeof(struct chss));
@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
     {
       while(!feof(f))
       {
-        process_command(process_line());
+        command(line());
       }
     }
     else
@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
     return 0;
 }
 
-int process_line()
+int line()
 {
   int index = 0;
   if (!feof(f))
@@ -167,19 +167,19 @@ void process_command(int code)
         {
             int i = 0;
             char s[256];
-            s[0] = process_line();
+            s[0] = line();
             while((s[i] != 9) && (!feof(f)))
             {
-                process_command(s[i]);
+                command(s[i]);
                 i++;
-                s[i] = process_line();
+                s[i] = line();
             }
             int max = i;
             while(chs -> mem)
             {
                 for(i = 0; i < max; i++)
                 {
-                    process_command(s[i]);
+                    command(s[i]);
                 }
             }
         }
